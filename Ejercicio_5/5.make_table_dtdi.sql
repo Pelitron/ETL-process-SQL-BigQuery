@@ -8,7 +8,7 @@ CREATE TABLE `keepcoding.doc_type_doc_iden` AS(
     FROM
     keepcoding.ivr_detail
 
-    QUALIFY ROW_NUMBER() OVER (PARTITION BY calls_ivr_id ORDER BY document_identification) = 1
+    QUALIFY ROW_NUMBER() OVER (PARTITION BY calls_ivr_id ORDER BY calls_ivr_id) = 1
   )
 
   SELECT calls_ivr_id,
