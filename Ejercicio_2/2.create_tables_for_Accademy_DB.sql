@@ -21,15 +21,15 @@ create table courses (
 
 create table enrollments (
   id bigint primary key generated always as identity,
-  student_id bigint references students (id),
-  course_id bigint references courses (id),
+  student_id bigint references not null students (id),
+  course_id bigint references not null courses (id),
   enrollment_date date not null,
   expected_completion_date date
 );
 
 create table grades (
   id bigint primary key generated always as identity,
-  enrollment_id bigint references enrollments (id),
+  enrollment_id bigint references not null enrollments (id),
   grade numeric check (
     grade >= 0
     and grade <= 100
@@ -39,7 +39,7 @@ create table grades (
 
 create table projects (
   id bigint primary key generated always as identity,
-  enrollment_id bigint references enrollments (id),
+  enrollment_id bigint references not null enrollments (id),
   project_name text not null,
   submission_date date,
   grade numeric check (
@@ -50,14 +50,14 @@ create table projects (
 
 create table instructor_comments (
   id bigint primary key generated always as identity,
-  enrollment_id bigint references enrollments (id),
+  enrollment_id bigint references not null enrollments (id),
   comment text not null,
   comment_date date not null
 );
 
 create table payments (
   id bigint primary key generated always as identity,
-  student_id bigint references students (id),
+  student_id bigint references not null students (id),
   method text not null,
   amount numeric not null,
   payment_date date not null
@@ -65,7 +65,7 @@ create table payments (
 
 create table scholarships (
   id bigint primary key generated always as identity,
-  student_id bigint references students (id),
+  student_id bigint references not null students (id),
   discount_percentage numeric check (
     discount_percentage >= 0
     and discount_percentage <= 100
@@ -75,7 +75,7 @@ create table scholarships (
 
 create table additional_info (
   id bigint primary key generated always as identity,
-  student_id bigint references students (id),
+  student_id bigint references noy null students (id),
   schedule_preferences text,
   previous_experience text,
   academic_goals text,
